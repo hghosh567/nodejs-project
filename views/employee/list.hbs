@@ -1,0 +1,120 @@
+<ul>
+  
+      <li><div style="margin-top:6px ;margin-left:10px;padding:5px;background-color:#2f48d4"><h2>1805488</h2></div></li>
+  
+  <li><a class="active" href="#home">Home</a></li>
+  <li><a href="/employee/aboutme">About Me</a></li>
+  
+</ul>
+<div style="margin-left:15%;padding:1px 16px;height:1000px;background-color:rgb(248, 248, 238)">
+<h1 > My Meetings</h1>
+<div style="background-color: rgb(255, 255, 255);padding:10px; width:95%;box-shadow: 10px 10px 5px grey;">
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name" style="none">
+From<input type="date" id="my" onkeyup="myFunction2()" placeholder="dates.." title="Type in a name">
+To<input type="date" id="my" onkeyup="myFunction2()" placeholder="dates.." title="Type in a name">
+</div>
+<div style="background-color: rgb(255, 255, 255);padding:10px; width:95%;margin-top:18px;box-shadow: 10px 10px 5px grey;">
+<table id="myTable" class="css-serial">
+    <thead>
+        <tr>
+            <th>Sl.no</th>
+            <th>Meeting name</th>
+            <th>No of people attending</th>
+            <th>Date</th>
+            <th>Start time</th>
+            <th>End time</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each list}}
+        <tr>
+            <td></td>
+            <td>{{this.meetingname}}</td>
+            <td>{{this.noofpeopleattending}}</td>
+            <td>{{this.date}}</td>
+            <td>{{this.starttime}}</td>
+            <td>{{this.endtime}}</td>
+            <td>
+                
+                <a href="/employee/delete/{{this._id}}" onclick="return confirm('Are you sure to delete this record ?');">delete</a>
+            </td>
+        </tr>
+        
+        {{/each}}
+        <form action="/employee" method="POST" autocomplete="off" >
+    <input type="hidden" name="_id" value="{{employee._id}}">
+     
+        <tr>
+            <td></td>
+            <td>
+        <input type="text" name="meetingname" value="{{employee.meetingname}}"> </td>
+    
+        <td>
+        <input type="text" name="noofpeopleattending" value="{{employee.noofpeopleattending}}">
+        </td>
+    
+    
+        <td>
+            <input type="date" name="date" value="{{employee.date}}">
+        
+        </td><td>
+            <input type="time" name="starttime" value="{{employee.starttime}}">
+        </td><td>
+            <input type="time" name="endtime" value="{{employee.endtime}}">
+        </td>
+    
+        <td>
+        <button type="submit">Add</button></td>
+        </tr>
+        
+    
+</form>
+        
+    </tbody>
+    
+    
+</table>
+
+
+</div>
+</div>
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+function myFunction2() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("my");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
